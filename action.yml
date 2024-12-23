@@ -55,5 +55,5 @@ runs:
           --no-check-external-hash 
           --ignore-status-codes 302,401
           --ignore-files "${{ inputs.file_ignore }}"
-          --ignore-urls "${{ env.URLS }}"
+          --ignore-urls "${{ env.URLS }},${{ inputs.url_ignore }}"
           ./_site

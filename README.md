@@ -15,8 +15,8 @@ docker push hub.opensciencegrid.org/opensciencegrid/html-proofer:latest
 ### Proof Locally
 
 ```shell
-FILE_IGNORE=""
-URL_IGNORE=""
+FILE_IGNORE="/./classad/.*/,/./instructions/.*/,/./slides/.*/,/./slides/.*/,/./uw-support/support-agreement.html/,/./doc/.*/,/./wiki-archive/.*/,/./news-archive.html/"
+URL_IGNORE=$(curl -s https://raw.githubusercontent.com/CHTC/test_links/refs/heads/master/links-action/ignore_urls.json | jq -r 'map("/" + . + "/") | join(",")' | sed 's/ //g')
 
 docker run -v ${PWD}/_site:/_site hub.opensciencegrid.org/opensciencegrid/html-proofer:latest --ignore-empty-alt --ignore-missing-alt --no-enforce-https --no-check-external-hash --ignore-status-codes 302,401 --ignore-files $FILE_IGNORE --ignore-urls $URL_IGNORE /_site
 ```
